@@ -12,7 +12,7 @@ let translations: any[];
 let selections: vscode.Selection[];
 let linesCount: number;
 let activeEditor: vscode.TextEditor;
-let actionType: string;
+let actionType: 'comment' | 'translate' | 'complete';
 
 
 export function activate(context: vscode.ExtensionContext) {
