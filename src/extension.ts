@@ -20,8 +20,8 @@ export function activate(context: vscode.ExtensionContext) {
   if (isShowWhatsNew) {
     showWhatsNew(context);
   }
-  const disposable = vscode.commands.registerCommand('extension.translate', translateAction);
-  context.subscriptions.push(disposable);
+  const translateDisposable = vscode.commands.registerCommand('extension.translate', translateAction);
+  context.subscriptions.push(translateDisposable);
   const commentDisposable = vscode.commands.registerCommand('extension.comment', commentAction);
   context.subscriptions.push(commentDisposable);
   const completeDisposable = vscode.commands.registerCommand('extension.complete', completeAction);
