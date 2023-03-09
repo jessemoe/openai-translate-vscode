@@ -30,7 +30,6 @@
             "type": "shell",
             "command": "code --install-extension ${input:ext-vsix-file-path}"
         },
-        ,
         {
             "label": "un-install extension",
             "type": "shell",
