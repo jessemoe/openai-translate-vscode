@@ -8,7 +8,7 @@
 </h2>
 <p align="center">
   <a href="https://travis-ci.org/stark-eth/openai-translate-vscode"><img src="https://travis-ci.org/stark-eth/openai-translate-vscode.svg?branch=master" alt="Travis CI"></a>
-  <a href="https://github.com/stark-eth/openai-translate-vscode/releases"><img src="https://img.shields.io/github/release/stark-etb/openai-translate-vscode.svg" alt="version"></a>
+  <a href="https://github.com/stark-eth/openai-translate-vscode/releases"><img src="https://img.shields.io/github/release/stark-eth/openai-translate-vscode.svg" alt="version"></a>
 </p>
 
 ## Installation
