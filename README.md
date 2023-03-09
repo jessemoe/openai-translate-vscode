@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://raw.githubusercontent.com/stark-eth/openai-translate-vscode/master/assets/icons/icon.ico">
+  <img src="https://raw.githubusercontent.com/stark-eth/openai-translate-vscode/master/assets/icons/icon.ico" width = "200" height = "200">
   <br>
   OpenAI Translate
 </h1>
