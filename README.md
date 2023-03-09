@@ -19,8 +19,11 @@
 Select the text that your want to translate and execute `Translate` command.
 > Tip: Use the shortcut `Ctrl+Alt+t` to translate the selected text.
 
-Select the text that your want to comment and execute `Comment` command.
+Select the code that your want to comment and execute `Comment` command.
 > Tip: Use the shortcut `Ctrl+Alt+c` to translate the selected text.
+
+Select the code that your want to complete and execute `Complete` command.
+> Tip: Use the shortcut `Ctrl+Alt+f` to translate the selected text.
 
 ## Features
 * <u>Multi Languages:</u><br>Translate your code to multi languages simply by adding the desired language code to `openaiTranslate.languages` string array configuration.(You can add any language supported by ChatGPT)
