@@ -42,7 +42,7 @@
             "id": "ext-vsix-file-path",
             "type": "promptString",
             "description": "extension .vsix file path",
-            "default": "./google-translate-ext-2.1.0.vsix"
+            "default": "./openai-translate-ext-1.0.0.vsix"
         }
     ]
 }
