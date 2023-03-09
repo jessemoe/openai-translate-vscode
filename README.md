@@ -12,7 +12,8 @@
 
 ## Installation
 1. Install the extension.
-2. Configure desired *'translate to'* language/s in user settings configuration - `openaiTranslate.languages`.
+2. Configure `apikey` and `apiurl` in user settings configuration - `openaiTranslate.apiKey` `openaiTranslate.apiURL`.
+3. Configure desired *'translate to'* language/s in user settings configuration - `openaiTranslate.languages`.
 
 ## How to use
 Select the text that your want to translate and execute `Translate` command.
