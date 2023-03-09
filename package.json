@@ -47,7 +47,8 @@
 						},
 						"default": [
 							"en-US",
-							"zh-CN"
+							"zh-CN",
+							"jp-JP"
 						],
 						"description": "An array of the languages that your would like to translate the selected text to."
 					},
