@@ -1,7 +1,12 @@
-name: Publish Extension
+name: Build Test
 on:
   push:
-    tags: [ v\d+\.\d+\.\d+ ]
+   branches:
+    - master
+   paths-ignore:
+    - 'README.md'
+    - '.github/workflows/**'
+    - 'package-lock.json'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,5 +22,3 @@ jobs:
       run: npm install -g vsce
     - name: packag extension
       run: vsce package
-    - name: publish extension
-      run: vsce publish -p ${{secrets.VSCE_TOKEN}}
