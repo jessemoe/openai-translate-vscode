@@ -1,22 +1,44 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { complete } from './comment';
+import { comment } from './complete';
 import { translate } from './translate';
 
 var languages: any;
+var codeLanguages: any[];
 var replaceText: boolean;
 var translations: any[];
 var selections: vscode.Selection[];
 var linesCount: number;
 let activeEditor: vscode.TextEditor;
+let actionType: string;
+
 
 export function activate(context: vscode.ExtensionContext) {
   const isShowWhatsNew = context.globalState.get('show-whats-new') ?? true;
   if (isShowWhatsNew) {
     showWhatsNew(context);
   }
-  let disposable = vscode.commands.registerCommand('extension.translate', onActivate);
+  const disposable = vscode.commands.registerCommand('extension.translate', translateAction);
   context.subscriptions.push(disposable);
+  const commentDisposable = vscode.commands.registerCommand('extension.comment', commentAction);
+  context.subscriptions.push(commentDisposable);
+  const completeDisposable = vscode.commands.registerCommand('extension.complete', completeAction);
+  context.subscriptions.push(completeDisposable);
+}
+
+function translateAction() {
+  onActivate('translate')
+}
+
+function commentAction() {
+  actionType = 'comment'
+  onActivate('comment')
+}
+
+function completeAction() {
+  onActivate('complete')
 }
 
 function showWhatsNew(context: vscode.ExtensionContext): void {
@@ -64,7 +86,7 @@ function getWebviewContent() {
 	`;
 }
 
-function onActivate(): void {
+function onActivate(type: string) {
   if (!vscode.window.activeTextEditor) {
     vscode.window.showErrorMessage('Must select text to translate');
     return;
@@ -83,7 +105,7 @@ function onActivate(): void {
       showEmptyError();
       return;
     }
-    translateSelection(selections[0]);
+    translateSelection(selections[0], type);
   } else {
     showEmptyError();
   }
@@ -91,6 +113,7 @@ function onActivate(): void {
 
 function initMembers(): void {
   languages = vscode.workspace.getConfiguration('openaiTranslate')['languages'];
+  codeLanguages = vscode.workspace.getConfiguration('openaiTranslate')['codeLanguages'];
   replaceText = vscode.workspace.getConfiguration('openaiTranslate')['replaceText'];
   selections = activeEditor.selections;
   translations = [];
@@ -99,11 +122,11 @@ function initMembers(): void {
 
 function multiCursorTranslate(): void {
   selections.forEach((selection) => {
-    translateSelection(selection);
+    translateSelection(selection, 'translate');
   });
 }
 
-function translateSelection(selection: vscode.Selection | vscode.Range): void {
+function translateSelection(selection: vscode.Selection | vscode.Range, type: string) {
   if (!selection.isSingleLine) {
     let firstLineNumber: number = selection.start.line;
     let lastLineNumber = selection.end.line;
@@ -115,7 +138,7 @@ function translateSelection(selection: vscode.Selection | vscode.Range): void {
       } else if (lineNumber === lastLineNumber) {
         range = new vscode.Range(lineNumber, 0, lineNumber, selection.end.character);
       }
-      translateSelection(range);
+      translateSelection(range, type);
     }
     return;
   }
@@ -124,26 +147,64 @@ function translateSelection(selection: vscode.Selection | vscode.Range): void {
     vscode.window.showErrorMessage('Go to user settings and edit "openaiTranslate.languages".');
     return;
   }
-  if (typeof languages === 'string') {
-    translate(selectedText, <vscode.Selection>selection, languages);
-  } else if (replaceText) {
-    if (languages.length > 1) {
-      const quickPick = vscode.window.createQuickPick();
-      quickPick.items = languages.sort().map((label: string) => ({ label }));
-      quickPick.placeholder = 'Select a language...';
-      quickPick.onDidAccept(() => {
-        translate(selectedText, <vscode.Selection>selection, quickPick.selectedItems[0].label);
-        quickPick.dispose();
-      });
-      quickPick.onDidHide(() => quickPick.dispose());
-      quickPick.show();
+  if (type === 'translate') {
+    if (typeof languages === 'string') {
+      translate(selectedText, <vscode.Selection>selection, languages);
+    } else if (replaceText) {
+      if (languages.length > 1) {
+        const quickPick = vscode.window.createQuickPick();
+        quickPick.items = languages.sort().map((label: string) => ({ label }));
+        quickPick.placeholder = 'Select a language...';
+        quickPick.onDidAccept(() => {
+          translate(selectedText, <vscode.Selection>selection, quickPick.selectedItems[0].label);
+          quickPick.dispose();
+        });
+        quickPick.onDidHide(() => quickPick.dispose());
+        quickPick.show();
+      } else {
+        translate(selectedText, <vscode.Selection>selection, languages[0]);
+      }
     } else {
-      translate(selectedText, <vscode.Selection>selection, languages[0]);
+      languages.forEach((language: string) => {
+        translate(selectedText, <vscode.Selection>selection, language);
+      });
+    }
+  } else if (type === 'comment') {
+    if (typeof codeLanguages === 'string') {
+      comment(selectedText, <vscode.Selection>selection, codeLanguages);
+    } else if (replaceText) {
+      if (codeLanguages.length > 1) {
+        const quickPick = vscode.window.createQuickPick();
+        quickPick.items = codeLanguages.sort().map((label: string) => ({ label }));
+        quickPick.placeholder = 'Select a language...';
+        quickPick.onDidAccept(() => {
+          comment(selectedText, <vscode.Selection>selection, quickPick.selectedItems[0].label);
+          quickPick.dispose();
+        });
+        quickPick.onDidHide(() => quickPick.dispose());
+        quickPick.show();
+      } else {
+        comment(selectedText, <vscode.Selection>selection, codeLanguages[0]);
+      }
     }
   } else {
-    languages.forEach((language: string) => {
-      translate(selectedText, <vscode.Selection>selection, language);
-    });
+    if (typeof codeLanguages === 'string') {
+      complete(selectedText, <vscode.Selection>selection, codeLanguages);
+    } else if (replaceText) {
+      if (codeLanguages.length > 1) {
+        const quickPick = vscode.window.createQuickPick();
+        quickPick.items = codeLanguages.sort().map((label: string) => ({ label }));
+        quickPick.placeholder = 'Select a language...';
+        quickPick.onDidAccept(() => {
+          complete(selectedText, <vscode.Selection>selection, quickPick.selectedItems[0].label);
+          quickPick.dispose();
+        });
+        quickPick.onDidHide(() => quickPick.dispose());
+        quickPick.show();
+      } else {
+        complete(selectedText, <vscode.Selection>selection, languages[0]);
+      }
+    }
   }
 }
 
@@ -153,9 +214,12 @@ export function onTranslateSuccess(selection: vscode.Selection, language: string
       activeEditor.edit((editBuilder: vscode.TextEditorEdit) => {
         for (let i = 0; i < translations.length; i++) {
           const element = translations[i];
-          editBuilder.replace(element.selection, element.translatedText);
+          actionType === 'comment'
+            ? editBuilder.insert(element.selection, element.translatedText)
+            : editBuilder.replace(element.selection, element.translatedText);
         }
-        editBuilder.replace(selection, translatedText);
+        actionType === 'comment'
+          ? editBuilder.insert(selection.active, translatedText) : editBuilder.replace(selection, translatedText);
       });
     } else {
       translations.push({
@@ -173,4 +237,4 @@ function showEmptyError(): void {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

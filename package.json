@@ -37,7 +37,7 @@
 					},
 					"openaiTranslate.replaceText": {
 						"type": "boolean",
-						"default": false,
+						"default": true,
 						"description": "Set to true in order to replace selected text with the translated text."
 					},
 					"openaiTranslate.languages": {
@@ -50,6 +50,17 @@
 							"zh-CN"
 						],
 						"description": "An array of the languages that your would like to translate the selected text to."
+					},
+					"openaiTranslate.codeLanguages": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"default": [
+							"TypeScript",
+							"Python"
+						],
+						"description": "An array of the code languages that your would like to operate the selected text to."
 					}
 				}
 			}
@@ -58,12 +69,28 @@
 			{
 				"command": "extension.translate",
 				"title": "Translate"
+			},
+			{
+				"command": "extension.comment",
+				"title": "Comment"
+			},
+			{
+				"command": "extension.complete",
+				"title": "Complete"
 			}
 		],
 		"keybindings": [
 			{
 				"command": "extension.translate",
-				"key": "shift+ctrl+t"
+				"key": "ctrl+alt+t"
+			},
+			{
+				"command": "extension.comment",
+				"key": "ctrl+alt+c"
+			},
+			{
+				"command": "extension.complete",
+				"key": "ctrl+alt+f"
 			}
 		]
 	},
