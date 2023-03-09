@@ -5,12 +5,12 @@ import { complete } from './comment';
 import { comment } from './complete';
 import { translate } from './translate';
 
-var languages: any;
-var codeLanguages: any[];
-var replaceText: boolean;
-var translations: any[];
-var selections: vscode.Selection[];
-var linesCount: number;
+let languages: any;
+let codeLanguages: any[];
+let replaceText: boolean;
+let translations: any[];
+let selections: vscode.Selection[];
+let linesCount: number;
 let activeEditor: vscode.TextEditor;
 let actionType: string;
 
