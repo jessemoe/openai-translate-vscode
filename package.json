@@ -46,7 +46,8 @@
 							"type": "string"
 						},
 						"default": [
-							"en"
+							"en-US",
+							"zh-CN"
 						],
 						"description": "An array of the languages that your would like to translate the selected text to."
 					}
