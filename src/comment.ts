@@ -3,7 +3,6 @@ import { onTranslateSuccess } from './extension';
 import { postApi } from './utils';
 
 export async function complete(textToTranslate: string, selection: vscode.Selection, language: string) {
-
     let systemPrompt = 'Complete the following code like github copilot and  and cannot interpret it. you should return the origin code and the comment'
     let assistantPrompt = `complete the ${language} code`
     const data = {
