@@ -1,8 +1,8 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { complete } from './comment';
-import { comment } from './complete';
+import { complete } from './complete';
+import { comment } from './comment';
 import { translate } from './translate';
 
 let languages: any;
@@ -127,21 +127,6 @@ function multiCursorTranslate(): void {
 }
 
 function translateSelection(selection: vscode.Selection | vscode.Range, type: string) {
-  if (!selection.isSingleLine) {
-    let firstLineNumber: number = selection.start.line;
-    let lastLineNumber = selection.end.line;
-    linesCount += lastLineNumber - firstLineNumber;
-    for (let lineNumber = firstLineNumber; lineNumber <= lastLineNumber; lineNumber++) {
-      let range: vscode.Range = activeEditor.document.lineAt(lineNumber).range;
-      if (lineNumber === firstLineNumber) {
-        range = new vscode.Range(lineNumber, selection.start.character, lineNumber, range.end.character);
-      } else if (lineNumber === lastLineNumber) {
-        range = new vscode.Range(lineNumber, 0, lineNumber, selection.end.character);
-      }
-      translateSelection(range, type);
-    }
-    return;
-  }
   let selectedText: string = activeEditor.document.getText(new vscode.Range(selection.start, selection.end));
   if (!languages) {
     vscode.window.showErrorMessage('Go to user settings and edit "openaiTranslate.languages".');
@@ -210,21 +195,19 @@ function translateSelection(selection: vscode.Selection | vscode.Range, type: st
 
 export function onTranslateSuccess(selection: vscode.Selection, language: string, translatedText: any): void {
   if (replaceText) {
+    const text = translatedText.replace(new RegExp('```'), '')
     if (selections.length + linesCount === translations.length + 1) {
       activeEditor.edit((editBuilder: vscode.TextEditorEdit) => {
         for (let i = 0; i < translations.length; i++) {
           const element = translations[i];
-          actionType === 'comment'
-            ? editBuilder.insert(element.selection, element.translatedText)
-            : editBuilder.replace(element.selection, element.translatedText);
+          editBuilder.replace(element.selection, element.text);
         }
-        actionType === 'comment'
-          ? editBuilder.insert(selection.active, translatedText) : editBuilder.replace(selection, translatedText);
+        editBuilder.replace(selection, text);
       });
     } else {
       translations.push({
         selection,
-        translatedText,
+        text,
       });
     }
   } else {
