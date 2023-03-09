@@ -20,7 +20,7 @@ interface OpanaiBody {
     }[],
 }
 
-export async function postApi(data:OpanaiBody, options:PostOptions) {
+export async function postApi(data: OpanaiBody, options: PostOptions) {
     const apiKey = vscode.workspace.getConfiguration('openaiTranslate')['apiKey'];
     const apiURL = vscode.workspace.getConfiguration('openaiTranslate')['apiURL'];
     const { onMessage, onError } = options

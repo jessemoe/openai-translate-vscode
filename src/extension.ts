@@ -9,7 +9,7 @@ let languages: any;
 let codeLanguages: any[];
 let replaceText: boolean;
 let translations: any[];
-let selections: vscode.Selection[];
+let selections: readonly vscode.Selection[];
 let linesCount: number;
 let activeEditor: vscode.TextEditor;
 let actionType: 'comment' | 'translate' | 'complete';
