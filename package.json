@@ -58,7 +58,13 @@
 						},
 						"default": [
 							"TypeScript",
-							"Python"
+							"JavaScript",
+							"Python",
+							"GoLang",
+							"Rust",
+							"C++",
+							"C",
+							"Java"
 						],
 						"description": "An array of the code languages that your would like to operate the selected text to."
 					}
