@@ -3,7 +3,7 @@
 	"displayName": "OpenAI Translate",
 	"description": "Translate your code using OpenAI API.",
 	"version": "1.0.0",
-	"publisher": "Stark.me",
+	"publisher": "Starkme",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/stark-eth/openai-translate-vscode.git"
