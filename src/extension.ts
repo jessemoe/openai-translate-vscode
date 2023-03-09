@@ -46,18 +46,18 @@ function getWebviewContent() {
 			<body>
 				<h1 align="center">
 					<br>
-					<img src="https://raw.githubusercontent.com/benshabatnoam/google-translate-vscode-ext/master/assets/icons/icon.ico">
+					<img src="https://raw.githubusercontent.com/stark-eth/openai-translate-vscode/master/assets/icons/icon.ico">
 					<br>
 					Google Translate
 				</h1>
 				<h2 align="center">Translate your code using Google Translate.</a>
 				</h2>
 				<p align="center">
-					<a href="https://travis-ci.org/benshabatnoam/google-translate-vscode-ext"><img src="https://travis-ci.org/benshabatnoam/google-translate-vscode-ext.svg?branch=master" alt="Travis CI"></a>
-					<a href="https://github.com/benshabatnoam/google-translate-vscode-ext/releases"><img src="https://img.shields.io/github/release/benshabatnoam/google-translate-vscode-ext.svg" alt="version"></a>
+					<a href="https://travis-ci.org/stark-eth/openai-translate-vscode"><img src="https://travis-ci.org/stark-eth/openai-translate-vscode.svg?branch=master" alt="Travis CI"></a>
+					<a href="https://github.com/stark-eth/openai-translate-vscode/releases"><img src="https://img.shields.io/github/release/stark-eth/openai-translate-vscode.svg" alt="version"></a>
 				</p>
 				<h3 align="center">
-					No need to register <i>Google Cloud Translate API</i> anymore! Translate your code totally free from today.
+					Config your openAI apikey,then translate your code by chatgpt.
 				</h3>
 			</body>
 		</html>
@@ -90,8 +90,8 @@ function onActivate(): void {
 }
 
 function initMembers(): void {
-  languages = vscode.workspace.getConfiguration('openaiTranslateExt')['languages'];
-  replaceText = vscode.workspace.getConfiguration('openaiTranslateExt')['replaceText'];
+  languages = vscode.workspace.getConfiguration('openaiTranslate')['languages'];
+  replaceText = vscode.workspace.getConfiguration('openaiTranslate')['replaceText'];
   selections = activeEditor.selections;
   translations = [];
   linesCount = 0;
@@ -121,7 +121,7 @@ function translateSelection(selection: vscode.Selection | vscode.Range): void {
   }
   let selectedText: string = activeEditor.document.getText(new vscode.Range(selection.start, selection.end));
   if (!languages) {
-    vscode.window.showErrorMessage('Go to user settings and edit "openaiTranslateExt.languages".');
+    vscode.window.showErrorMessage('Go to user settings and edit "openaiTranslate.languages".');
     return;
   }
   if (typeof languages === 'string') {

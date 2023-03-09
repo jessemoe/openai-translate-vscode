@@ -3,8 +3,8 @@ import { onTranslateSuccess } from './extension';
 import axios from 'axios';
 
 export async function translate(textToTranslate: string, selection: vscode.Selection, language: string) {
-    const apiKey = vscode.workspace.getConfiguration('openaiTranslateExt')['apiKey'];
-    const apiURL = vscode.workspace.getConfiguration('openaiTranslateExt')['apiURL'];
+    const apiKey = vscode.workspace.getConfiguration('openaiTranslate')['apiKey'];
+    const apiURL = vscode.workspace.getConfiguration('openaiTranslate')['apiURL'];
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
