@@ -2,7 +2,7 @@
 	"name": "openai-translate",
 	"displayName": "OpenAI Translate",
 	"description": "Translate your code using OpenAI API.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "Starkme",
 	"repository": {
 		"type": "git",
