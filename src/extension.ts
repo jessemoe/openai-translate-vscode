@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 function showWhatsNew(context: vscode.ExtensionContext): void {
   const panel = vscode.window.createWebviewPanel(
     'whatsNew',
-    `What's New in Google Translate`,
+    `What's New in OpenAI Translate`,
     vscode.ViewColumn.One,
     {}
   );
@@ -41,16 +41,16 @@ function getWebviewContent() {
 			<head>
 					<meta charset="UTF-8">
 					<meta name="viewport" content="width=device-width, initial-scale=1.0">
-					<title>What's New in Google Translate</title>
+					<title>What's New in OpenAI Translate</title>
 			</head>
 			<body>
 				<h1 align="center">
 					<br>
 					<img src="https://raw.githubusercontent.com/stark-eth/openai-translate-vscode/master/assets/icons/icon.ico">
 					<br>
-					Google Translate
+					OpenAI Translate
 				</h1>
-				<h2 align="center">Translate your code using Google Translate.</a>
+				<h2 align="center">Translate your code using OpenAI Translate.</a>
 				</h2>
 				<p align="center">
 					<a href="https://travis-ci.org/stark-eth/openai-translate-vscode"><img src="https://travis-ci.org/stark-eth/openai-translate-vscode.svg?branch=master" alt="Travis CI"></a>
