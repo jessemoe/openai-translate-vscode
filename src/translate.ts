@@ -3,7 +3,6 @@ import { onTranslateSuccess } from './extension';
 import { postApi } from './utils';
 
 export async function translate(textToTranslate: string, selection: vscode.Selection, language: string) {
-
     let systemPrompt = 'You are a translation engine that can only translate text and cannot interpret it.'
     let assistantPrompt = `translate to ${language}`
     const data = {
