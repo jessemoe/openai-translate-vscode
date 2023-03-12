@@ -3,8 +3,8 @@ import { onTranslateSuccess } from './extension';
 import { postApi } from './utils';
 
 export async function complete(textToTranslate: string, selection: vscode.Selection, language: string) {
-    let systemPrompt = 'Complete the following code like github copilot and  and cannot interpret it.'
-    let assistantPrompt = `complete the ${language} code`
+    let systemPrompt = 'Complete the following code like github copilot and  and cannot interpret it.';
+    let assistantPrompt = `complete the ${language} code`;
     const data = {
         model: 'gpt-3.5-turbo',
         temperature: 0,
@@ -23,7 +23,7 @@ export async function complete(textToTranslate: string, selection: vscode.Select
             },
             { role: 'user', content: `${textToTranslate}` },
         ],
-    }
+    };
     await postApi(data, {
         onMessage: (msg) => {
             onTranslateSuccess(selection, language, msg);
@@ -31,7 +31,7 @@ export async function complete(textToTranslate: string, selection: vscode.Select
         onError: (err) => {
             vscode.window.showErrorMessage(err);
         }
-    })
+    });
 
 }
 

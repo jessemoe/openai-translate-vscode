@@ -4,8 +4,8 @@ import { postApi } from './utils';
 
 export async function comment(textToTranslate: string, selection: vscode.Selection, language: string) {
 
-    let systemPrompt = 'Comment the following code to make more clear and  and cannot interpret it. you should return the origin code and the comment and just comment the important code'
-    let assistantPrompt = `comment the ${language} code`
+    let systemPrompt = 'Comment the following code to make more clear and  and cannot interpret it. you should return the origin code and the comment and just comment the important code';
+    let assistantPrompt = `comment the ${language} code`;
     const data = {
         model: 'gpt-3.5-turbo',
         temperature: 0,
@@ -24,7 +24,7 @@ export async function comment(textToTranslate: string, selection: vscode.Selecti
             },
             { role: 'user', content: `${textToTranslate}` },
         ],
-    }
+    };
     await postApi(data, {
         onMessage: (msg) => {
             onTranslateSuccess(selection, language, msg);
@@ -32,7 +32,7 @@ export async function comment(textToTranslate: string, selection: vscode.Selecti
         onError: (err) => {
             vscode.window.showErrorMessage(err);
         }
-    })
+    });
 
 }
 

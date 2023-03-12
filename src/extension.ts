@@ -29,16 +29,16 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function translateAction() {
-  onActivate('translate')
+  onActivate('translate');
 }
 
 function commentAction() {
-  actionType = 'comment'
-  onActivate('comment')
+  actionType = 'comment';
+  onActivate('comment');
 }
 
 function completeAction() {
-  onActivate('complete')
+  onActivate('complete');
 }
 
 function showWhatsNew(context: vscode.ExtensionContext): void {
@@ -195,7 +195,7 @@ function translateSelection(selection: vscode.Selection | vscode.Range, type: st
 
 export function onTranslateSuccess(selection: vscode.Selection, language: string, translatedText: any): void {
   if (replaceText) {
-    const text = translatedText.replace(new RegExp('```'), '')
+    const text = translatedText.replace(new RegExp('```'), '');
     if (selections.length + linesCount === translations.length + 1) {
       activeEditor.edit((editBuilder: vscode.TextEditorEdit) => {
         for (let i = 0; i < translations.length; i++) {

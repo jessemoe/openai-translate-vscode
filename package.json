@@ -106,7 +106,8 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"lint": "eslint src --fix --ext ts"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.0.0",
